@@ -1,3 +1,3 @@
 import Keyv from 'keyv';
 
-const keyv = new Keyv();
+export const keyv = new Keyv();
