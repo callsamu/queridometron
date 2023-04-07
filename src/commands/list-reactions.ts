@@ -12,7 +12,12 @@ module.exports = {
         if (interaction.guild) {
             const reactions = await getGuildReactions(interaction.guild.id);
             const reply = listReactions(reactions);
-            await interaction.reply(reply);
+            if (reply !== '') {
+                await interaction.reply(reply);
+            } else {
+                await interaction.reply("no reactions are available. use the /add command to add one");
+
+            }
         } else {
             await interaction.followUp({
                 content: "unable to identify guild",

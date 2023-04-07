@@ -24,8 +24,14 @@ module.exports = {
             });
             return;
         }
+
         const reactions = await getGuildReactions(interaction.guild.id);
         const reactionsInString = listReactions(reactions);
+
+        if (reactionsInString === '') {
+            await interaction.reply("no reactions are available. use the /add command to add one");
+            return;
+        }
 
         const response = await interaction.reply({
             content: `QUINTO QUERIDOMETRO DA PQP\n${reactionsInString}`,
