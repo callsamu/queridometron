@@ -1,4 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { keyv } from "src/keyv";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,6 +16,12 @@ module.exports = {
                 .setDescription('subtitle for the queridometro reaction')
                 .setRequired(true)),
     async execute(interaction: CommandInteraction) {
-        await interaction.reply("feito");
+        if (!interaction.isChatInputCommand()) return
+
+        const reaction = interaction.options.getString('reaction');
+        const subtitle = interaction.options.getString('subtitle');
+
+        keyv.set(reaction, subtitle);
+        await interaction.reply(`${reaction} (${subtitle})`);
     }
 }
