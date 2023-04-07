@@ -1,6 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { getGuildReactions } from "../storage";
-import { listReactions } from "src/helpers";
+import { listReactions } from "../helpers";
 
 module.exports = {
     data: new SlashCommandBuilder()
