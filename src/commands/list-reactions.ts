@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { getGuildReactions } from "../storage";
+import { listReactions } from "src/helpers";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,13 +11,8 @@ module.exports = {
 
         if (interaction.guild) {
             const reactions = await getGuildReactions(interaction.guild.id);
-            const strings: string[] = [];
-            reactions.forEach((value, key) => {
-                strings.push(`${key} (${value})`);
-            });
-            const reply = strings.join("\n");
+            const reply = listReactions(reactions);
             await interaction.reply(reply);
-
         } else {
             await interaction.followUp({
                 content: "unable to identify guild",
