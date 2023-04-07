@@ -4,13 +4,15 @@ import { Client, Collection, CommandInteraction, Events, GatewayIntentBits, Slas
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-importAllFromDir('events', (obj: any) => {
-    const event: Event = obj;
-    if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(...args));
-    }
-});
+(async () => {
+    await importAllFromDir('events', (obj: any) => {
+        const event: Event = obj;
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args));
+        }
+    });
 
-client.login(process.env.DISCORD_TOKEN);
+    client.login(process.env.DISCORD_TOKEN);
+})
