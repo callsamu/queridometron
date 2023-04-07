@@ -1,5 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { keyv } from "src/keyv";
+import { addGuildReaction } from "../storage";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,24 @@ module.exports = {
         const reaction = interaction.options.getString('reaction');
         const subtitle = interaction.options.getString('subtitle');
 
-        keyv.set(reaction, subtitle);
+        if (!reaction || !subtitle) {
+            await interaction.followUp({
+                content: "reaction or subtitle not provided",
+                ephemeral: true
+            });
+            return;
+        }
+
+        if (interaction.guild) {
+            await addGuildReaction(interaction.guild.id, reaction, subtitle);
+        } else {
+            await interaction.followUp({
+                content: "unable to identify guild",
+                ephemeral: true
+            });
+        }
+
+
         await interaction.reply(`${reaction} (${subtitle})`);
     }
 }
