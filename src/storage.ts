@@ -1,6 +1,6 @@
 import Keyv from 'keyv';
 
-type Reactions = Map<string, string>;
+export type Reactions = Map<string, string>;
 
 const keyv = new Keyv();
 
