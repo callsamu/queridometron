@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import Reactions from './storage';
+import { Reactions } from './storage';
 
 export async function importAllFromDir(dir: string, fun: (obj: any) => void) {
     const commandsPath = path.join(__dirname, dir);
