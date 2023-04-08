@@ -20,6 +20,13 @@ export async function getGuildReactions(id: string): Promise<Reactions> {
     }
 }
 
+export async function deleteGuildReaction(id: string, reaction: string) {
+    const reactions = await getGuildReactions(id);
+    reactions.delete(reaction);
+    const json = JSON.stringify(Object.fromEntries(reactions));
+    await keyv.set(id, json);
+}
+
 export async function addGuildReaction(id: string, reaction: string, subtitle: string) {
     const reactions = await getGuildReactions(id);
     reactions.set(reaction, subtitle);
