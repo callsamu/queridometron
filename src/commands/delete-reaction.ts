@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { deleteGuildReaction } from "../storage";
+import { memberHasQueridometroRole } from "../helpers";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,6 +13,21 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return;
+
+        if (!interaction.member) {
+            await interaction.reply({
+                content: "ERROR: Could not identify member.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        if (memberHasQueridometroRole(interaction.member)) {
+            await interaction.reply({
+                content: "ERROR: to use this command, you must have the 'queridometro' role.",
+                ephemeral: true
+            });
+        }
 
         if (!interaction.guild) {
             await interaction.reply({

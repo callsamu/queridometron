@@ -9,6 +9,22 @@ module.exports = {
     async execute(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return;
 
+        if (!interaction.member) {
+            await interaction.reply({
+                content: "ERROR: Could not identify member.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        if (memberHasQueridometroRole(interaction.member)) {
+            await interaction.reply({
+                content: "ERROR: to use this command, you must have the 'queridometro' role.",
+                ephemeral: true
+            });
+            return;
+        }
+
         const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
                 new ButtonBuilder()

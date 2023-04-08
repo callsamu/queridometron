@@ -1,6 +1,6 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, GuildMemberRoleManager, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 import { addGuildReaction } from "../storage";
-import { isValidEmoji } from "../helpers";
+import { isValidEmoji, memberHasValidRole } from "../helpers";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,6 +18,22 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction: CommandInteraction) {
         if (!interaction.isChatInputCommand()) return
+
+        if (!interaction.member) {
+            await interaction.reply({
+                content: "ERROR: Could not identify member.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        if (memberHasQueridometroRole(interaction.member)) {
+            await interaction.reply({
+                content: "ERROR: to use this command, you must have the 'queridometro' role.",
+                ephemeral: true
+            });
+            return;
+        }
 
         const reaction = interaction.options.getString('reaction');
         const subtitle = interaction.options.getString('subtitle');
