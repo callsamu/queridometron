@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { addGuildReaction } from "../storage";
+import { isValidEmoji } from "../helpers";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,6 +30,13 @@ module.exports = {
             return;
         }
 
+        if (!isValidEmoji(reaction)) {
+            await interaction.followUp({
+                content: "reaction is not a valid emoji",
+                ephemeral: true
+            });
+        }
+
         if (interaction.guild) {
             await addGuildReaction(interaction.guild.id, reaction, subtitle);
         } else {
@@ -39,6 +47,7 @@ module.exports = {
         }
 
 
+        console.log(reaction);
         await interaction.reply(`${reaction} ${subtitle}`);
     }
 }

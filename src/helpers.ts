@@ -25,3 +25,8 @@ export function listReactions(reactions: Reactions): string {
 
     return lines.join("\n");
 }
+
+export function isValidEmoji(emoji: string): boolean {
+    const rx = /^<a?:.+?:\d{18}>$|^\p{Extended_Pictographic}$/u;
+    return rx.test(emoji.trim());
+}
