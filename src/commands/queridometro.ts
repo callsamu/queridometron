@@ -34,7 +34,7 @@ module.exports = {
         }
 
         const response = await interaction.reply({
-            content: `QUINTO QUERIDOMETRO DA PQP\n${reactionsInString}`,
+            content: `QUERIDOMETRO 07/04/2023\n${reactionsInString}`,
             components: [row]
         })
 
@@ -48,7 +48,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setColor(0x0099FF)
                 .setTitle(i.user.username)
-                .setThumbnail(i.user.avatarURL());
+                .setImage(i.user.avatarURL());
 
             if (i.channel) {
                 const message = await i.reply({
