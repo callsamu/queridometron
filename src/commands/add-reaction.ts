@@ -31,10 +31,11 @@ module.exports = {
         }
 
         if (!isValidEmoji(reaction)) {
-            await interaction.followUp({
+            await interaction.reply({
                 content: "reaction is not a valid emoji",
                 ephemeral: true
             });
+            return;
         }
 
         if (interaction.guild) {
@@ -46,8 +47,6 @@ module.exports = {
             });
         }
 
-
-        console.log(reaction);
         await interaction.reply(`${reaction} ${subtitle}`);
     }
 }
