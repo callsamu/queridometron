@@ -20,7 +20,7 @@ export function listReactions(reactions: Reactions): string {
     const lines: string[] = [];
 
     reactions.forEach((value, key) => {
-        lines.push(`${key} (${value})`);
+        lines.push(`${key} ${value}`);
     });
 
     return lines.join("\n");

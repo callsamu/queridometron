@@ -39,6 +39,6 @@ module.exports = {
         }
 
 
-        await interaction.reply(`${reaction} (${subtitle})`);
+        await interaction.reply(`${reaction} ${subtitle}`);
     }
 }
