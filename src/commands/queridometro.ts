@@ -18,8 +18,8 @@ module.exports = {
             );
 
         if (!interaction.guild) {
-            await interaction.followUp({
-                content: 'unable to identify guild',
+            await interaction.reply({
+                content: 'ERROR: Unable to identify guild',
                 ephemeral: true
             });
             return;
@@ -29,7 +29,7 @@ module.exports = {
         const reactionsInString = listReactions(reactions);
 
         if (reactionsInString === '') {
-            await interaction.reply("no reactions are available. use the /add command to add one");
+            await interaction.reply("No reactions are available. Use the /add command to add one.");
             return;
         }
 

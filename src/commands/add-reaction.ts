@@ -24,15 +24,17 @@ module.exports = {
 
         if (!reaction || !subtitle) {
             await interaction.followUp({
-                content: "reaction or subtitle not provided",
+                content: "ERROR: Reaction or subtitle not provided.",
                 ephemeral: true
             });
             return;
         }
 
+        console.log(reaction);
+
         if (!isValidEmoji(reaction)) {
             await interaction.reply({
-                content: "reaction is not a valid emoji",
+                content: "ERROR: Reaction is not a valid emoji.",
                 ephemeral: true
             });
             return;
@@ -41,8 +43,8 @@ module.exports = {
         if (interaction.guild) {
             await addGuildReaction(interaction.guild.id, reaction, subtitle);
         } else {
-            await interaction.followUp({
-                content: "unable to identify guild",
+            await interaction.reply({
+                content: "ERROR: Unable to identify guild.",
                 ephemeral: true
             });
         }
